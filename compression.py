@@ -3,7 +3,7 @@ import re
 
 
 def bits2Num (input,bits): 		# input a number, and how many bits, and it will spit out it's number counterpart
-	
+
 	input_str = str(input) 		# convert to a str
 
 	# add commas to the string
@@ -85,7 +85,7 @@ def addZeroes(startNum, zeroesNeeded):
 	while (i < zeroesNeeded):
 		finalNum = str(finalNum) + "0"
 		i = i + 1
-	
+
 	return int(finalNum)
 
 
@@ -161,6 +161,3 @@ numAdjusted = addZeroes(startingNum,zeroesAdded)
 
 
 #print(binaryPrint("000001000010000011000100000101000110000111001000001001", 6))
-
-
-
