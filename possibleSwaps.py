@@ -100,7 +100,25 @@ Future swaps (these get left out, until some of the other ideas are futher devel
 4^5	=	1024
 
 
-10x10
+
+The biggest problem is that number of consecutive digits needed before compressing per cycle.
+i.e.
+5^9	= 1953125           # isn't great
+4^5	=	1024          # is great
+
+
+
+We might be taking the wrong approach. Let's flip the script.
+
+With a total of 3 characters, how many of the possible 9,999 possiblities of a 4 digit number could we cover?
+(what average percentage could we compress by one digit).
+
+This act, plus a proper cycle (such as the proposed 5/5) would make recursive compression a given.
+
+(Moved back to playground.py)
+
+
+
 
 
 

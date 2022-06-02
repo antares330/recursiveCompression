@@ -68,3 +68,91 @@ Double digit binary swap
 ("lucky" swap, and only 1 digit gained...)
 
 """
+
+
+
+"""
+
+Number combinations of 6 values
+
+To find maximum number of 4 digit possibilities, from 6 different numbers being combined.
+
+Example:
+
+a = 12
+b = 15
+c = 28
+...
+
+a*b*c (assumed multiplication) becomes abc = 5040 (but with 3 digits)
+
+
+Testing from the fourDigit tab in the playground, leads me to start at:
+Start = 3
+gap size = 4 (between numbers)
+
+values 2, 4 and 6 have +1 added (to have some even numbers in the mix)
+
+which equals
+a = 3
+b = 12
+c = 15
+d = 20
+e = 23
+f = 28
+
+"""
+
+a = 3
+b = 12
+c = 15
+d = 20
+e = 23
+f = 28
+
+
+# start a dictionary with all possible swaps
+dict_swaps = {
+#    "aaa":"27"
+}
+
+possible_variables = [a,b,c,d,e,f]
+
+# loop through aaa, aab, aac, aad, aae, aaf, aba, abb, abc abd... etc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#
