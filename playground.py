@@ -10,7 +10,7 @@ import random
 import_export_excel = "storage/storage.xlsx"
 
 storageFile = pd.read_excel(import_export_excel)
-print(storageFile)
+#print(storageFile)
 
 """
 321,895,712,389,327,684,897 - number
@@ -206,23 +206,26 @@ storeTest()
 
 def randomVariables():
     global a,b,c,d,e,f
-    a = random.randrange(0,99)
-    b = random.randrange(0,99)
-    c = random.randrange(0,99)
-    d = random.randrange(0,99)
-    e = random.randrange(0,99)
-    f = random.randrange(0,99)
+    a = random.randrange(0,10)
+    b = random.randrange(0,15)
+    c = random.randrange(0,20)
+    d = random.randrange(0,25)
+    e = random.randrange(0,30)
+    f = random.randrange(0,35)
 
 
 
-cycleCounts = 45000
+cycleCounts = 5000
 i = 0
 
+"""
 while (i < cycleCounts):
     randomVariables()
     runTest()
     storeTest()
-
+    i = i + 1
+    print(i)
+"""
 
 
 
