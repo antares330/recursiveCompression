@@ -120,8 +120,27 @@ possible_variables = [a,b,c,d,e,f]
 
 # loop through aaa, aab, aac, aad, aae, aaf, aba, abb, abc abd... etc
 
+variables_count = 0
+
+i_index = 0
+j_index = 0
+k_index = 0
+for i in possible_variables:
+    for j in possible_variables:
+        for k in possible_variables:
+            dict_swaps[str(i_index) + str(j_index) + str(k_index)] = i*j*k
+            variables_count = variables_count + 1
+
+            k_index = k_index + 1
+        k_index = 0
+        j_index = j_index + 1
+    j_index = 0
+    i_index = i_index + 1
 
 
+#print(dict_swaps)
+
+print(variables_count)
 
 
 
