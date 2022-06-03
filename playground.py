@@ -103,12 +103,37 @@ f = 28
 
 """
 
+
 a = 3
 b = 12
 c = 15
 d = 20
 e = 23
-f = 28
+f = 24
+
+
+
+fourDigitCoverage = []
+fiveDigitCoverage = []
+
+
+# add all numbers to the following lists here
+four_loopCount = 9999
+five_loopCount = 99999
+
+# add all numbers under 9,999 to "fourDigitCoverage", then we'll remove them as we add them to possible swaps
+i = 1
+while (i <= four_loopCount):
+    fourDigitCoverage.append(i)
+    i += 1
+
+# same as fourDigitCoverage, but now with 5 digits
+i = 1
+while (i <= five_loopCount):
+    fiveDigitCoverage.append(i)
+    i += 1
+
+
 
 
 # start a dictionary with all possible swaps
@@ -131,6 +156,15 @@ for i in possible_variables:
             dict_swaps[str(i_index) + str(j_index) + str(k_index)] = i*j*k
             variables_count = variables_count + 1
 
+            # check if the value is still in the fourDigitCoverage list, if so, remove it
+            if(i*j*k in fourDigitCoverage):
+                fourDigitCoverage.remove(i*j*k)
+
+            # same as fourDigitCoverage version above, but for the fiveDigitCoverage List
+            if(i*j*k in fiveDigitCoverage):
+                fiveDigitCoverage.remove(i*j*k)
+            # check if the value is in the fourDigit / fiveDigit coverage lists, if so, remove them
+
             k_index = k_index + 1
         k_index = 0
         j_index = j_index + 1
@@ -138,9 +172,59 @@ for i in possible_variables:
     i_index = i_index + 1
 
 
+
+# print the number of values left after all possible swaps have been removed.
+print(len(fourDigitCoverage))
+print(len(fiveDigitCoverage))
+
+"""
+this system works really well as feedback to what works well and what doesn't work at all.
+
+now that we have a great feedback loop, it's time to maximize the 5 bit version..
+and maybe consider a 6 bit version (with 38 variable numbers, as compared to 6)
+
+
+We also need to establish rules around variables with decimals places, and what happens with decimal places in product.
+
+My feeling is that decimals should always ceiling or floor (as opposed to rounding), although rounding might give more
+potential options. (minor digit tweaks leading to rounding up, rather than down, giving many new options)
+
+
+As far as the 5 bit vs 6 bit potential..
+6^6 = 45,656
+38^38 = 1.07591180197999398206E+60
+
+I feel as though, with 38^38 and hella long floats (machine learning optimized), you may be able to hit a majority
+of 4 or 5 digit possibilities (even primes among others normally not accessible), and could make compression straight forward!
+
+
+This would mean more 4 digits then not would go from 4 digits, down to 3 EVERY CYCLE!
+
+For a 1,000 digit number..
+
+1000 / 4 (number of 4 digit chunks)
+
+250 chunks, where 1/2 or more get compressed (on average)
+
+125 chunks (so subtract 125 from 1,000)
+
+875 digits remaining. (a 12.5% reduction in size on disk without data loss, PER CYCLE!)
+
+
+The 3 main concerns then are this.
+1. To verify the validity of the above strategy as viable (especially, the ability to reach a coverage of above 50%)
+2. Making the 5/5 bit or 5/6 bit swap using less than the amount that was compressed (12.5%)
+"""
+
+
 #print(dict_swaps)
 
-print(variables_count)
+#print(variables_count)
+
+
+# we need some method for checking to see how many of the 4 digit possibilities we are covering (maybe 4-5)
+
+# a list with all numbers between 0 - 9,999 at the start, then removing them as we use them would give us how many are left.
 
 
 
