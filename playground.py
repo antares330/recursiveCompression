@@ -3,6 +3,15 @@
 # after typing up the readme of this respository, it hit me how vague or unfleshed out ideas there are.
 # that's what this playground is for, an in-depth look, without trying to keep it short.
 
+import pandas as pd
+import random
+
+#import an excel for storage and testing between runs
+import_export_excel = "storage/storage.xlsx"
+
+storageFile = pd.read_excel(import_export_excel)
+print(storageFile)
+
 """
 321,895,712,389,327,684,897 - number
 321895712389327684897 - no commas
@@ -104,78 +113,131 @@ f = 28
 """
 
 
-a = 3
-b = 12
-c = 15
-d = 20
-e = 23
-f = 24
-
-
+a = 1
+b = 3
+c = 7
+d = 15
+e = 17
+f = 23
 
 fourDigitCoverage = []
 fiveDigitCoverage = []
 
-
-# add all numbers to the following lists here
-four_loopCount = 9999
-five_loopCount = 99999
-
-# add all numbers under 9,999 to "fourDigitCoverage", then we'll remove them as we add them to possible swaps
-i = 1
-while (i <= four_loopCount):
-    fourDigitCoverage.append(i)
-    i += 1
-
-# same as fourDigitCoverage, but now with 5 digits
-i = 1
-while (i <= five_loopCount):
-    fiveDigitCoverage.append(i)
-    i += 1
+def runTest():
+    global fourDigitCoverage
+    global fiveDigitCoverage
+    fourDigitCoverage = []
+    fiveDigitCoverage = []
 
 
+    # add all numbers to the following lists here
+    four_loopCount = 9999
+    five_loopCount = 99999
+
+    # add all numbers under 9,999 to "fourDigitCoverage", then we'll remove them as we add them to possible swaps
+    i = 1
+    while (i <= four_loopCount):
+        fourDigitCoverage.append(i)
+        i += 1
+
+    # same as fourDigitCoverage, but now with 5 digits
+    i = 1
+    while (i <= five_loopCount):
+        fiveDigitCoverage.append(i)
+        i += 1
 
 
-# start a dictionary with all possible swaps
-dict_swaps = {
-#    "aaa":"27"
-}
 
-possible_variables = [a,b,c,d,e,f]
 
-# loop through aaa, aab, aac, aad, aae, aaf, aba, abb, abc abd... etc
+    # start a dictionary with all possible swaps
+    dict_swaps = {
+    #    "aaa":"27"
+    }
 
-variables_count = 0
+    possible_variables = [a,b,c,d,e,f]
+    #print(possible_variables)
+    # loop through aaa, aab, aac, aad, aae, aaf, aba, abb, abc abd... etc
 
-i_index = 0
-j_index = 0
-k_index = 0
-for i in possible_variables:
-    for j in possible_variables:
-        for k in possible_variables:
-            dict_swaps[str(i_index) + str(j_index) + str(k_index)] = i*j*k
-            variables_count = variables_count + 1
+    variables_count = 0
 
-            # check if the value is still in the fourDigitCoverage list, if so, remove it
-            if(i*j*k in fourDigitCoverage):
-                fourDigitCoverage.remove(i*j*k)
-
-            # same as fourDigitCoverage version above, but for the fiveDigitCoverage List
-            if(i*j*k in fiveDigitCoverage):
-                fiveDigitCoverage.remove(i*j*k)
-            # check if the value is in the fourDigit / fiveDigit coverage lists, if so, remove them
-
-            k_index = k_index + 1
-        k_index = 0
-        j_index = j_index + 1
+    i_index = 0
     j_index = 0
-    i_index = i_index + 1
+    k_index = 0
+    for i in possible_variables:
+        for j in possible_variables:
+            for k in possible_variables:
+                dict_swaps[str(i_index) + str(j_index) + str(k_index)] = i*j*k
+                variables_count = variables_count + 1
+
+                # check if the value is still in the fourDigitCoverage list, if so, remove it
+                if(i*j*k in fourDigitCoverage):
+                    fourDigitCoverage.remove(i*j*k)
+
+                # same as fourDigitCoverage version above, but for the fiveDigitCoverage List
+                if(i*j*k in fiveDigitCoverage):
+                    fiveDigitCoverage.remove(i*j*k)
+                # check if the value is in the fourDigit / fiveDigit coverage lists, if so, remove them
+
+                k_index = k_index + 1
+            k_index = 0
+            j_index = j_index + 1
+        j_index = 0
+        i_index = i_index + 1
 
 
 
-# print the number of values left after all possible swaps have been removed.
-print(len(fourDigitCoverage))
-print(len(fiveDigitCoverage))
+
+def storeTest():
+    global fourDigitScore
+    global fiveDigitScore
+    fourDigitScore = 9999-len(fourDigitCoverage)
+    fiveDigitScore = 99999-len(fiveDigitCoverage)
+    storageFile.loc[len(storageFile.index)] = [fourDigitScore, fiveDigitScore, a,b,c,d,e,f]
+
+
+runTest()
+storeTest()
+
+
+
+
+
+
+
+def randomVariables():
+    global a,b,c,d,e,f
+    a = random.randrange(0,99)
+    b = random.randrange(0,99)
+    c = random.randrange(0,99)
+    d = random.randrange(0,99)
+    e = random.randrange(0,99)
+    f = random.randrange(0,99)
+
+
+
+cycleCounts = 45000
+i = 0
+
+while (i < cycleCounts):
+    randomVariables()
+    runTest()
+    storeTest()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 """
 this system works really well as feedback to what works well and what doesn't work at all.
@@ -235,13 +297,7 @@ The 3 main concerns then are this.
 
 
 
-
-
-
-
-
-
-
+storageFile.to_excel(import_export_excel, index=False)
 
 
 
