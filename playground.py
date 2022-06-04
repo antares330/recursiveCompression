@@ -8,8 +8,8 @@ import random
 
 #import an excel for storage and testing between runs
 import_export_excel = "storage/storage.xlsx"
-
 storageFile = pd.read_excel(import_export_excel)
+
 #print(storageFile)
 
 """
@@ -120,6 +120,9 @@ d = 15
 e = 17
 f = 23
 
+
+
+
 fourDigitCoverage = []
 fiveDigitCoverage = []
 
@@ -148,7 +151,6 @@ def runTest():
 
 
 
-
     # start a dictionary with all possible swaps
     dict_swaps = {
     #    "aaa":"27"
@@ -169,6 +171,8 @@ def runTest():
                 dict_swaps[str(i_index) + str(j_index) + str(k_index)] = i*j*k
                 variables_count = variables_count + 1
 
+
+
                 # check if the value is still in the fourDigitCoverage list, if so, remove it
                 if(i*j*k in fourDigitCoverage):
                     fourDigitCoverage.remove(i*j*k)
@@ -186,24 +190,50 @@ def runTest():
 
 
 
+    # this test df is to export our dict_swaps file into excel (through pandas and a dataframe)
+    test_df = pd.DataFrame(dict_swaps, index = ['swap', 'value'])
+    #print(test_df)
+
+    #test_df = test_df.transpose(copy=False)
+
+    test_export = "storage/test_values.xlsx"
+
+    test_df.to_excel(test_export, index=False)
+
 
 def storeTest():
     global fourDigitScore
     global fiveDigitScore
     fourDigitScore = 9999-len(fourDigitCoverage)
     fiveDigitScore = 99999-len(fiveDigitCoverage)
-    storageFile.loc[len(storageFile.index)] = [fourDigitScore, fiveDigitScore, a,b,c,d,e,f]
+    storageFile.loc[len(storageFile.index)] = [fourDigitScore, fiveDigitScore, possible_variables]
 
 
+
+
+
+
+def randomListVariables():
+    global possible_variables
+    possible_variables = []
+
+
+    numberOfVariables = 38
+
+    i = 0
+    while (i < numberOfVariables):
+        possible_variables.append(random.randrange(0,35))
+        i = i + 1
+
+
+#then we run the test
+randomListVariables()
 runTest()
 storeTest()
 
 
 
-
-
-
-
+#old random variables for set variables (before the list was used directly)
 def randomVariables():
     global a,b,c,d,e,f
     a = random.randrange(0,10)
@@ -215,17 +245,21 @@ def randomVariables():
 
 
 
-cycleCounts = 5000
+
+
+
+cycleCounts = 100
 i = 0
 
-"""
+
 while (i < cycleCounts):
-    randomVariables()
+    #randomVariables()
+    randomListVariables()
     runTest()
     storeTest()
     i = i + 1
     print(i)
-"""
+
 
 
 
