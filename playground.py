@@ -166,21 +166,22 @@ def runTest():
     j_index = 0
     k_index = 0
     for i in possible_variables:
-        print(i)
+        #print(i)
         for j in possible_variables:
             for k in possible_variables:
                 dict_swaps[str(i_index) + str(j_index) + str(k_index)] = i*j*k
                 variables_count = variables_count + 1
 
-
+                calculated_value = round(i*j*k)
+                #print(calculated_value)
 
                 # check if the value is still in the fourDigitCoverage list, if so, remove it
-                if(i*j*k in fourDigitCoverage):
-                    fourDigitCoverage.remove(i*j*k)
+                if(calculated_value in fourDigitCoverage):
+                    fourDigitCoverage.remove(calculated_value)
 
                 # same as fourDigitCoverage version above, but for the fiveDigitCoverage List
-                if(i*j*k in fiveDigitCoverage):
-                    fiveDigitCoverage.remove(i*j*k)
+                if(calculated_value in fiveDigitCoverage):
+                    fiveDigitCoverage.remove(calculated_value)
                 # check if the value is in the fourDigit / fiveDigit coverage lists, if so, remove them
 
                 k_index = k_index + 1
@@ -228,11 +229,16 @@ def randomListVariables():
     possible_variables = []
 
 
+    incrementBy = 1.5
+
     numberOfVariables = 38
 
-    i = 0
+    i = -10.0
     while (i < numberOfVariables):
-        possible_variables.append(i+1)
+
+        randomVariation = random.random()
+
+        possible_variables.append((i+incrementBy) * randomVariation)
         """
         if(i < numberOfVariables/2):
             possible_variables.append(i)
@@ -241,11 +247,10 @@ def randomListVariables():
         """
         i = i + 1
 
+        
+        incrementBy = incrementBy + 0.07
 
-#then we run the test
-randomListVariables()
-runTest()
-storeTest()
+
 
 
 
@@ -261,13 +266,16 @@ def randomVariables():
 
 
 
+#then we run the test
+#randomListVariables()
+#runTest()
+#storeTest()
 
 
-
-cycleCounts = 0
+cycleCounts = 50
 i = 0
 
-"""
+
 while (i < cycleCounts):
     #randomVariables()
     randomListVariables()
@@ -275,7 +283,7 @@ while (i < cycleCounts):
     storeTest()
     i = i + 1
     print(i)
-"""
+
 
 
 
